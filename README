@@ -1,0 +1,83 @@
+The Cobras - Drake Oswald, Reed Christensen, Caiden Hauser
+
+This project is the creation of a compiler for the simple language, Klein.
+We have implimented a full compiler including a Scanner, Parser, Semantic Analyzer, 
+Intermidiate Representation, Optimization, and Code Generator. For this iteration
+of the project we fixed the code generator and added recursive tail call optimization.
+
+
+Src:
+	Our files consist mainly of...
+		Scanner.py - This file contains the code to produce a list of tokens, 
+			including the functions next() and peek().
+
+		TokenKlein.py - This file creates a token class which we use to store
+			what type of token one is and its value (if necessary).
+
+		Parser.py - This file contains code that checks that ensures proper
+			syntax, and returns the abstract syntax tree created from
+			the source progam.
+
+		NodeKlien.py - This file defines all of the possible types of nodes used
+			in the abstract syntax tree. 
+
+		TypeCheck.py - This file contains code that statically checks for
+			semantic errors within the abstract syntax tree and outputs
+			the symbol table and the annotated syntax tree.
+
+		genThreeAddress.py - This program takes our symbol table and annotated 
+			syntax tree and generates three address code as IR.
+		
+		CodeGenerator.py - This program is responsible for generating tm code 
+			derived from three address code. 
+
+Implemented for this Step:
+	We fixed the bugs from the previous submittion, fully implementing our code
+	generator. We also added the recursive tail call optimization when we generate our
+	three address code. Finally, we made fixed any remaining bugs and anything that we 
+	were previously docked points on.
+
+To run the executables:
+	The available executables are kleins, kleinf, kleinp, kleinv, kleinc. Python 3 
+	versions of these executables can be found in src/Executable-Source.
+
+	Navigate in the command line to the main directory. Enter the following command, 
+	interchanging the initial command for the desired executable:
+
+	     ./kleinc programs/(path_of_file)
+
+	Note: kleinc works with or without the .kln extension,
+	      
+	     ./kleinc programs/created-programs/eulers-number.kln
+
+	     ./kleinc programs/created-programs/eulers-number
+	      
+	Note for kleinc: These are both valid for klienc but the second example 
+	      is only valid for klienc and not the other executables. The created 
+	      tm file should be located in the same directory as the original .kln 
+	      file. Furthermore, the tm file should be called the original-file-name.tm. 
+	      So, the file print-one.kln has its corrosponding tm file, print-one.tm. 
+
+
+Additional comments:	
+
+This compiler has no KNOWN bugs at the moment. 
+
+This compiler supports the full Klein language.
+
+Optimizations:
+
+	Recursive tail call optimization
+
+	Note: Our optimization only works where the recursive call is the body of a function
+	      or the recursive call is the body of an else. Examples:
+
+		function main(a: integer) : integer
+			print(a)
+			main(a + 1)
+
+		function main(a: integer) : integer
+			if a = 100
+			then a
+			else main(a + 1)
+

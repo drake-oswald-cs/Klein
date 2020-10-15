@@ -1,0 +1,19 @@
+
+*Solves the power digit sum problem from projecteuler.net where you must take a number to an exponent and then add the digits together of the result*
+
+function EXP( m : integer, n : integer ) : integer
+    if n = 0 then 1 else m * EXP(m, n-1)
+
+function MOD( m : integer, n : integer ) : integer
+    m - m/n * n
+
+
+function powerDigitSum(m : integer, sum : integer) : integer
+    if m < 10
+        then sum + m
+        else
+            powerDigitSum((m/10), (sum + MOD(m/10)))
+
+
+function main(num : integer, power : integer) : integer
+    powerDigitSum(EXP(num, power), 0)

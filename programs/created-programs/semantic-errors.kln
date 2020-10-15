@@ -1,0 +1,22 @@
+(* This is a program with semantic errors in it to test the semantic analyzer
+This is an index function for integers, returning the index of a digit at its last occurrence, and -1 if it is not found *)
+
+function main ( num : integer, n : integer ) : integer
+  indexNumber (num , true, length(num)-1) 
+(* function undefined, passes a boolean instead of int as variable *)
+
+function indexNum ( num : integer, n : integer, i : integer ) : boolean 
+(* Returns an int not a boolean *)
+  if number < 10 then                  (* variable undefined as number instead of num *)
+    if n = num then i else false       (* if statement returns different types *)
+  else if digit = MOD(num)             (* passes wrong number of arguments *)
+    then i
+    else indexNum(num/10, n, i)
+
+function length ( n : integer ) : integer
+  if n + 10 then 1                     (* if test is not a boolean expression *)
+  else true+length(n/10)               (* int operator on boolean *)
+
+
+function MOD( m : integer, n : integer ) : integer
+  m - m/n * n

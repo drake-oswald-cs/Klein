@@ -1,0 +1,24 @@
+function MOD( m : integer, n : integer ) : integer
+  m - m/n * n
+
+function count( digit : integer, num : integer ) : integer
+  if num < 10 then
+    if digit = num then 1 else 0
+    else
+      if digit = MOD(num, 10)
+        then 1 + count(digit, num/10)
+        else count(digit, num/10)
+
+function findGreatest( num : integer, iter : integer, currentHigh : integer ) : integer
+(* Goes through all digits and finds which digit occurs the most using count *)  
+  if iter = 9 then
+    if count(iter, num) < count(currentHigh, num)
+      then currentHigh
+      else 9
+    else if count(iter, num) < count(currentHigh, num)
+      then findGreatest(num, iter+1, currentHigh)
+      else findGreatest(num, iter+1, iter)
+
+function main( num : integer ) : integer
+  (* Finds the digit with the highest number of occurrences in an integer *)
+  findGreatest(num, 0, 1)
